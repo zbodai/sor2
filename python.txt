@@ -1,0 +1,928 @@
+def feladatEgy():
+    print("1. feladat: 	Olvasd be a fájlt, és írd ki a tartalmát egy sorba, úgy, hogy nem tárolod el a szöveget, hanem minden sort azonnal kiírsz!")
+
+    beFajl=open("dal.txt", "r", encoding="utf-8")
+    #print(beFajl.read(), end="")
+    for sor in beFajl:
+        print(sor.strip(), end="")
+
+    beFajl.close()
+
+def feladat2():
+    print("2. feladat: 	Olvasd be a fájlt, tárold a sorokat listában, majd írd ki a lista tartalmát egy sorban!")
+
+    lista=[]
+    beFajl = open("dal.txt", "r", encoding="utf-8")
+    # print(beFajl.read(), end="")
+    for sor in beFajl:
+        #print(sor.strip(), end="")
+        lista.append(sor.strip())
+    beFajl.close()
+
+    for elem in lista:
+        print(elem, end="")
+
+def feladat3():
+    print("3. feladat: 	Olvasd be a fájlt, tárold a sorokat listában, majd írd ki a lista tartalmát egy sorként egy másik fájlba!")
+
+    lista = []
+    beFajl = open("dal.txt", "r", encoding="utf-8")
+    # print(beFajl.read(), end="")
+    for sor in beFajl:
+        # print(sor.strip(), end="")
+        lista.append(sor.strip())
+    beFajl.close()
+
+    kiFajl=open("harmadik.txt","w", encoding="utf-8")
+    for elem in lista:
+        print(elem, end="", file=kiFajl)
+    kiFajl.close()
+
+class Gep:
+
+    def __init__(self,id,hely,tipus,ipcim) -> None:
+        self.id = int(id)
+        self.hely =int(hely.replace('T',''))
+        # self.hely = int(hely[1]+hely[2]+hely[3])
+        self.tipus = tipus
+        self. ipcim = ipcim
+
+
+    def __str__(self) -> str:
+        return f"Gép id-ja: {self.id},  helye: {self.hely}, tipusa: {self.tipus}, ipcim: {self.ipcim}."
+
+
+import Gep
+
+def harmadik():
+    gepek=[]
+
+    # beolvasás
+    beFajl = open("gep.txt","r", encoding="utf-8")
+    # első sor olvasása
+    beFajl.readline()
+    # összes többi sor olvasása
+    adatok = beFajl.readlines()
+    # print(adatok)
+    for index in range(0,len(adatok),1):
+        # sorvége jel eltávolítása
+        tisztitottAdat=adatok[index].strip()
+        # print(tisztitottAdat)
+        # eldarabolom az adatokat a határoló karakterek mentén
+        daraboltSor = tisztitottAdat.split("!")
+        # print(daraboltSor)
+        # objektumok létrehozása az osztályból
+        gepem = Gep.Gep(daraboltSor[0],daraboltSor[1], daraboltSor[2], daraboltSor[3])
+        # print(gepem)
+        # listába helyezem az objektumokat
+        gepek.append(gepem)
+    # print(gepek)
+    beFajl.close()
+    # első feladat: 
+    print("III/A, B:")
+    print(f"\t A gépek száma: {len(gepek)}.")
+    # második feladat:
+    # összegzés, megszámlálás tétele
+    print("III/C:")
+    osszeg=0
+    db =0
+    atlag=0
+    for index in range(0, len(gepek),1):
+        if gepek[index].hely%2==0:
+            osszeg += gepek[index].id
+            db +=1
+    if db==0:
+        print("\tNem volt páros teremszám!")
+    else:
+        atlag = int(osszeg/db)
+        print(f"\tA páros teremszámú termek azonosító átlaga: {atlag}.")
+    # harmadik feladat
+    # minimum keresés tétele
+    print("III/D:")
+    minId = gepek[0].id
+    minIndex = 0
+    for index in range(1, len(gepek),1):
+        if gepek[index].id <minId:
+            minId = gepek[index].id
+            minIndex = index
+    print(f"\tA legkisebb asztali gép azonosítója: {minId}, helye: T{gepek[minIndex].hely}")
+        
+import csomag
+
+def feladat3():
+    csomagok=[]
+
+    beFajl = open("csomag.txt","r", encoding="utf-8")
+
+    beFajl.readline()
+
+    adatok = beFajl.readlines()
+
+    for index in range(0,len(adatok),1):
+        # sorvége jel eltávolítása
+        tisztitottAdat=adatok[index].strip()
+
+        daraboltSor = tisztitottAdat.split("#")
+
+        csomagom = csomag.Csomag(daraboltSor[0],daraboltSor[1], daraboltSor[2], daraboltSor[3])
+        # print(gepem)
+        # listába helyezem az objektumokat
+        csomagok.append(csomagom)
+    # print(gepek)
+    beFajl.close()
+
+    print("III/A, B:")
+    print(f"\t A pogyászok száma: {len(csomagok)}")
+
+    print("III/C:")
+    osszeg = 0
+    db = 0
+    atlag = 0
+    for index in range(len(csomagok)):
+        if csomagok[index].szel == 51:
+            osszeg += csomagok[index].suly
+            db += 1
+    if db == 0:
+        print("\tNem volt 51 cm-es pogyász!")
+    else:
+        atlag = int((osszeg / db)*1000)
+        print(f"\tAz 51 cm-es pogyászok átlag súlyértéke: {atlag} g")
+
+
+    print("III/D:")
+    maxcsom = csomagok[0].mag
+    maxIndex = 0
+    for index in range(len(csomagok)):
+        if csomagok[index].mag > maxcsom:
+            maxcsom = csomagok[index].mag
+            maxIndex = index
+    print(f"\tA legmagasabb pogyász méretei: {csomagok[maxIndex].szel}x{csomagok[maxIndex].mag}x{csomagok[maxIndex].mely}, súlya: {csomagok[maxIndex].suly} kg")
+
+
+def elso():
+
+    print("I/A, B:")
+    # adatokbeolvasása
+    mnev = input("\tMúzeum neve: ")
+    lnev = input("\tLátogató neve: ")
+    ertekeles= int(input("\tÉrtékelés (1-20): "))
+
+    print("I/C:")
+    # adatok ellenörzése, feldolgozása
+    if ertekeles == 0:
+        print("\tNem a megfelelő határokon belül lett megadva!")
+    elif ertekeles<0:
+        print("\tAz értékelés nem lehet negatív!")
+    elif ertekeles>20:
+        print("\t20 pont feletti értékelés nem elfogadható!")
+    else:
+        print("\tKöszönjük az értékelést!")
+
+
+import random
+def negativak_szama(lista):
+    db=0
+    for index in range(0,len(lista),1):
+        if lista[index] < 0:
+            db +=1
+    return db
+
+def konzolra_ir(db):
+    print("\tNegatív számok száma: "+ str(db)+".")
+    # print(f"\tNegatív számok száma: {db}.")
+
+def fajl_ir(db):
+    kiFajl = open("eredmenyek.txt", "w",encoding="utf-8")
+    print("II/F:", file=kiFajl)
+    #kiFajl.write("II/F:")
+    print("\tNegatív számok száma: "+ str(db)+".", file=kiFajl)
+    # kiFajl.write("\tNegatív számok száma: "+ str(db)+".")
+    kiFajl.close()
+
+
+def masodik():
+    print("II/A, B, C:")
+    print("\t", end="")
+    szamok = []
+    for db in range(0,14,1):
+        vszam = random.randint(-90,500)
+        szamok.append(vszam)
+        print(str(vszam)+"*", end="")
+    vszam = random.randint(-90,500)
+    szamok.append(vszam)
+    print(str(vszam))
+
+    print("II/D, E:")
+    konzolra_ir(negativak_szama(szamok))
+    fajl_ir(negativak_szama(szamok))
+
+
+import random
+
+def listak():
+    print("Hozz létre egy 20 elemű listát véletlen pozitív kétjegyű számokkal feltöltve, az utolsó eleme legyen páratlan!Majd valósítsd meg a tanult tételeket metódusként, futtasd is le!")
+
+    n = 20
+    lista = []
+    lista2=[2,4,76]
+
+    # metódusok
+    def listaFeltolt():
+        # feltölti a listát elemekkel, az utolsó elem páratlan.
+        # első 19 szám
+        db = 0
+        while db < n-1 :
+            szam = random.randint(10,99)
+            lista.append(szam)
+            db += 1
+        #20. szám: páratlan
+        szam = random.randint(10, 99)
+        while not(szam % 2 == 1):
+            szam = random.randint(10, 99)
+        lista.append(szam)
+
+    def kiir():
+        # A lista elemeit vesszővel elválasztva írd ki, az utolsó után ne legyen vessző.
+        print("A lista elemei: ", end="")
+        print(lista[0], end="")
+        index = 1
+        while index < len(lista):
+            print(", {}".format(lista[index]), end="")
+            index += 1
+        print("")
+
+    def osszegzes():
+        # Mennyi a lista elemeinek összege?
+        osszeg = 0
+        index = 0
+        while index < len(lista):
+            osszeg += lista[index]
+            index +=1
+        print("A lista elemeinke összege: {}.".format(osszeg))
+
+    def eldontes():
+        # Van-e 5-tel osztható lista elem?
+        """nincs=True
+        index=0
+        while (index < len(lista)) and nincs:
+            # print(nincs)
+            if lista[index] % 5 ==0:
+                nincs =False
+            index +=1
+        if nincs:
+            print("Nincs 5-el osztható lista elem.")
+        else:
+            print("Van 5-el osztható lista elem.")
+        """
+        index = 0
+        while (index < len(lista2)) and not(lista[index] % 5 == 0):
+            index += 1
+        van = index < len(lista2)
+        if van:
+            print("Van 5-el osztható lista elem.")
+        else:
+            print("Nincs 5-el osztható lista elem.")
+
+
+
+
+    def kivalasztas():
+        # Írd ki a lista első páratlan elemét, és sorszámát!(van páratlan elem)
+        index = 0
+        while index < len(lista) and not(lista[index] % 2 == 1):
+            index +=1
+        print("A lista első páratlan eleme: {}, helye: {}.".format(lista[index], index+1))
+
+    def linearisKereses():
+        # Van-e a tömbben 24? (Nem tudom hogy van-e)
+        index = 0
+        while index < len(lista) and not(lista[index]==24):
+            index +=1
+        van = (index < len(lista))
+        if van:
+            print("Van 24 értékű elem, az első helye: {}.".format(index+1))
+        else:
+            print("Nincs 24 értékű elem.")
+
+    def megszamolas():
+        # Írd ki hány páros elem van a listában!
+        db = 0
+        index = 0
+        while index < len(lista):
+            if lista[index] % 2 == 0:
+                db += 1
+            index += 1
+        print("Páros elemek száma: {}.".format(db))
+    def maximumKivalasztas():
+        # Melyik elem értéke a legnagyobb a listában, hol található?
+        maxErtek = lista[0]
+        maxHely = 0
+
+        index = 1
+        while index < len(lista):
+            if lista[index] >maxErtek:
+                maxErtek = lista[index]
+                maxHely = index
+            index += 1
+        print("A legnagyobb érték: {}, helye: {}".format(maxErtek, maxHely+1))
+
+    def minimumKivalasztas():
+        # Melyik elem értéke a legkisebb a listában, hol található?
+        minErtek = lista[0]
+        minHely = 0
+        index = 1
+        while index < len(lista):
+            if lista[index]< minErtek:
+                minErtek = lista[index]
+                minHely = index
+            index += 1
+        print("A legkisebb érték: {}, helye: {}".format(minErtek, minHely + 1))
+
+    #főprogram
+    listaFeltolt()
+    kiir()
+    osszegzes()
+    eldontes()
+    kivalasztas()
+    linearisKereses()
+    megszamolas()
+    maximumKivalasztas()
+    minimumKivalasztas()
+
+def negyedik():
+    print("4. feladat: 	Nyisd meg a KariVers.txt állományt és egészítsd ki a verset az utolsó versszakával a KariVers2.txt állományba.")
+
+    kiFajl=open("KariVers.txt", "a",encoding="utf-8")
+    kiFajl.write("\n\nTiszta öröm tüze átég \na szemeken, a harangjáték\nszól, éjféli üzenet:\nKis Jézuska született!")
+
+    kiFajl.close()
+
+
+def elsoa():
+    # felhasználó adja meg
+    n=int(input("Adj meg egy természetes számot!"))
+    while not(n>=0):
+        n = int(input("Adj meg egy természetes számot!"))
+    return  n
+
+def elsob():
+    n=random.randint(0,50)
+    while not(n>=0):
+        n = random.randint(0,50)
+    return  n
+
+def elsoc():
+    beFajl=open("osszegzes/adatok1.txt", "r", encoding="utf-8")
+    n=beFajl.readline()
+    # print(type(n))
+    n=int(n)
+    beFajl.close()
+    return n
+
+import osszegzes.beolvas
+def elso():
+    print("1. feladat: 	A program írja ki az első N darab természetes szám összegét! A beolvasását egy függvény végezze! ")
+    # n = beolvas()
+    #n=osszegzes.beolvas.elsoa()
+    # n = osszegzes.beolvas.elsob()
+    n= osszegzes.beolvas.elsoc()
+
+    # összegzés tétele
+    osszeg = 0
+    ciklusValtozo = 1
+    while ciklusValtozo < n + 1:
+        osszeg += ciklusValtozo
+        ciklusValtozo += 1
+
+    print("Az első ", n, "természetes szám összege: ", osszeg)
+
+import osszegzes.beolvas
+def masodik():
+    n = osszegzes.beolvas.elsoa()
+
+    # összegzés tétele
+    faktorialis = 1
+    ciklusValtozo = 1
+    while ciklusValtozo < n + 1:
+        faktorialis *= ciklusValtozo
+        ciklusValtozo += 1
+    print("Az ", n, "!= ", faktorialis)
+
+def harmadik():
+    # beolvasás meghívása
+    n = osszegzes.beolvas.elsoc()
+
+    # összegzés tétele, átlagszámítás1
+    osszeg = 0
+    ciklusValtozo = 1
+    while ciklusValtozo < n + 1:
+        osszeg += ciklusValtozo
+        ciklusValtozo += 1
+
+    # kiiratás, 0db számra nincs értelme átlagot számolni
+    if (n > 0):
+        atlag = osszeg / n
+        print("Az első ", n, "természetes szám átlaga: ", atlag)
+    else:
+        print("0 db számnak nincs átlaga.")
+
+def egy():
+    # 1. feladat: 	Olvasd be a fájlt, és írd ki a tartalmát egy sorba, úgy, hogy nem tárolod el a szöveget, hanem minden sort azonnal kiírsz!
+    forrasFajl = open('fajlok/dal.txt','r', encoding='utf-8')
+
+    for sor in forrasFajl:
+        print(sor.strip(), end="")
+
+    forrasFajl.close()
+
+def ketto():
+    # 2. feladat: 	Olvasd be a fájlt, tárold a sorokat listában, majd írd ki a lista tartalmát egy sorban!
+    lista=[]
+    forrasFajl = open("fajlok/dal.txt",'r',encoding="utf-8")
+    for sor in forrasFajl:
+        lista.append(sor.strip())
+    forrasFajl.close()
+
+    for index in range(0, len(lista),1):
+        print(lista[index], end="")
+
+def harom():
+    # 3. feladat:
+    lista=[]
+    forrasFajl = open("fajlok/dal.txt",'r',encoding="utf-8")
+    for sor in forrasFajl:
+        lista.append(sor.strip())
+    forrasFajl.close()
+
+    forrasFajlKi = open("fajlok/harmadik.txt","w", encoding="utf-8")
+    for index in range(0, len(lista),1):
+        print(lista[index], end="", file=forrasFajlKi)
+    forrasFajlKi.close()
+
+def tisztit(szoveg):
+    irasjelek = "!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~"
+    irasjel_nelkuli = ""
+    for karakter in szoveg:
+        if karakter not in irasjelek:
+            irasjel_nelkuli += karakter
+    return irasjel_nelkuli
+
+def negy():
+    # 4. feladat:
+    lista=[]
+    forrasFajl = open("fajlok/dal.txt",'r',encoding="utf-8")
+    for sor in forrasFajl:
+        lista.append(sor.strip())
+    forrasFajl.close()
+
+    forrasFajlKi = open("fajlok/negyedik.txt","w", encoding="utf-8")
+    for index in range(0, len(lista),1):
+        daraboltSor=lista[index].split(" ")
+        print(tisztit(daraboltSor[0]), file=forrasFajlKi)
+    forrasFajlKi.close()
+
+def tizenKetto():
+
+    lista = []
+    beFajl = open("fajlok/allas.txt", "r", encoding="utf-8")
+    for sor in beFajl:
+        lista.append(sor.strip())
+    beFajl.close()
+
+    db = 0
+    for index in range(0, len(lista), 1):
+        daraboltLista = lista[index].split("  ")
+        for index2 in range(0, len(daraboltLista), 1):
+            if daraboltLista[index2] == "0":
+                db += 1
+
+    print("A ledöntött bábuk száma: {:d}".format(db))
+
+
+class Csoport:
+
+    # konstruktor
+    def __init__(self, nev, evfolyam, atlag):
+        self.nev = nev
+        self.evfolyam = evfolyam
+        self.atlag = float(atlag.replace(",","."))
+
+
+    def __str__(self):
+        return f"Név: {self.nev}, évfolyam: {self.evfolyam}, átlag: {self.atlag}"
+
+adatokListaja=[]
+
+def feldolgoz():
+    beFajl = open("fajlok/csoport.txt", "r", encoding="utf-8")
+    # első sort külön kezeljük
+    beFajl.readline()
+    #többi sor kezelése
+    sorok = beFajl.readlines()
+    # print(sorok)
+    for sor in sorok:
+        #sorvége jel tisztítása
+        adat=sor.strip()
+        #darabolás
+        daraboltAdat= adat.split("/")
+        #print(daraboltAdat)
+        #objektum létrehozása, példányosítás
+        csoporttag=Csoport.Csoport(daraboltAdat[0],daraboltAdat[1], daraboltAdat[2])
+        # print(csoporttag)
+        #listába teszem
+        adatokListaja.append(csoporttag)
+    beFajl.close()
+
+def kiir():
+    print(adatokListaja)
+    for index in range(0, len(adatokListaja),1):
+        print(adatokListaja[index])
+
+def sorokSzama():
+    db = len(adatokListaja)
+    return db
+
+def atlag():
+    osszeg = 0
+    for index in range(0, len(adatokListaja),1):
+        osszeg += adatokListaja[index].atlag
+    if len(adatokListaja) == 0:
+        atlaga = 0
+    else:
+        atlaga = osszeg/sorokSzama()
+    print(f"Az osztály átlaga: {atlaga}.")
+
+
+# főprogram
+feldolgoz()
+kiir()
+print(f"A csoporttagok száma: {sorokSzama()}.")
+atlag()
+
+
+def beolvas():
+    beFajl=open("szelsoertekKereses/homorseklet.txt", "r", encoding="utf-8")
+    adatok=beFajl.readlines()
+    beFajl.close()
+
+    index=0
+    while index<len(adatok):
+        # sorvége jelek leszedése
+        adatok[index]=adatok[index].strip()
+        # szám értékké alakítás
+        adatok[index]=int(adatok[index])
+        index += 1
+    return adatok
+
+import szelsoertekKereses.beolvasas
+
+def elso():
+    print("1. feladat: 	Adott egy fájlban egy sorozat! Keresse meg a legnagyobb értéket? Hányadik érték ez?")
+
+    adat = szelsoertekKereses.beolvasas.beolvas()
+    # print(adat)
+    maxErtek = adat[0]
+    maxHely = 0
+    index = 1
+    while index < len(adat):
+        if maxErtek < adat[index]:
+            maxErtek = adat[index]
+            maxHely = index
+        index += 1
+    print("A legnagyobb hőmérséklet érték: {}, nap sorszáma: {}.".format(maxErtek, maxHely+1))
+
+import szelsoertekKereses.beolvasas
+
+def elso():
+    print("1. feladat: 	Adott egy fájlban egy sorozat! Keresse meg a legkisebb értéket? Hányadik érték ez?")
+
+    adat = szelsoertekKereses.beolvasas.beolvas()
+    # print(adat)
+    minErtek = adat[0]
+    minHely = 0
+    index = 1
+    while index < len(adat):
+        if minErtek > adat[index]:
+            minErtek = adat[index]
+            minHely = index
+        index += 1
+    print("A legkisebb hőmérséklet érték: {}, nap sorszáma: {}.".format(minErtek, minHely+1))
+
+def elsoa():
+    # felhasználó adja meg
+    n=int(input("Adj meg egy természetes számot!"))
+    return  n
+
+def elsob():
+    n=random.randint(-50,50)
+    return  n
+
+def elsoc(helye):
+    beFajl=open(helye, "r", encoding="utf-8")
+    n=beFajl.readline()
+    # print(type(n))
+    n=int(n)
+    beFajl.close()
+    return n
+
+def adatBeolvasc(db):
+    beFajl=open("megszamlalas/kosar.txt", "r", encoding="utf-8")
+    eredmeny=beFajl.readlines()
+    vEredmeny=int(eredmeny[db])
+
+    return vEredmeny
+
+import megszamlalas.beolvas
+def elso():
+    # fájlból
+    szamom = megszamlalas.beolvas.elsoc("megszamlalas/adatok1.txt")
+    szamom2 = megszamlalas.beolvas.elsoc("megszamlalas/adatok2.txt")
+
+    #működjön minden bemenetre(kisebb nagyobb, nagyobb kisebb)
+    if szamom < szamom2:
+        alsoHatar = szamom
+        felsoHatar = szamom2
+    else:
+        alsoHatar = szamom2
+        felsoHatar = szamom
+
+    # megszámlálás
+    dbparatlan = 0
+    ciklusValtozo = alsoHatar+1
+    while ciklusValtozo < felsoHatar + 1:
+        if ciklusValtozo % 2 != 0:
+            # print(ciklusValtozo)
+            dbparatlan += 1
+        ciklusValtozo += 1
+
+    print("({},{}) között a páratlanok száma: {}".format(alsoHatar, felsoHatar, dbparatlan))
+
+import megszamlalas.beolvas
+
+def masodik():
+    eredmenyek = megszamlalas.beolvas.adatBeolvasc(0)
+
+    db = 0
+    while (eredmenyek != 5):
+        db += 1
+        eredmenyek = megszamlalas.beolvas.adatBeolvasc(db)
+    print("Kosára dobások száma: ", db)
+
+"""
+7.	Kérj be 2 számot, majd írasd ki a számokat 0-tól a 2 szám szorzatáig!
+"""
+
+szam1 = int(input("Kérem adjon meg egy egész számot!"))
+szam2 = int(input("Kérem adjon meg egy másik egész számot!"))
+
+if szam1*szam2>0:
+    for szam in range(0,szam1*szam2+1,1):
+        print(szam, end=" ")
+else:
+    for szam in range(0,szam1*szam2-1,-1):
+        print(szam, end=" ")
+
+"""
+9.	Írasd ki az első 7 pozitív egész számot vesszővel elválasztva!
+a.	úgy, hogy a végén ne legyen vessző!
+"""
+# utolsó elem megkülönböztetése
+for szam in range(1,7,1):
+    print(str(szam)+",", end="")
+print(7)
+
+#első elem megkülönböztetése
+print(1, end="")
+for szam in range(2,8,1):
+    print(","+str(szam), end="")
+print("")
+
+import math
+# 11.	Írasd ki 2 bekért szám (x és y) alapján, hogy mennyi 3x+y2!
+
+x = float(input("Add meg x értékét!"))
+y = float(input("Add meg y értékét!"))
+
+eredmeny = 3*x+y*y
+eredmeny2 = 3*x+y**2
+eredmeny3 = 3*x+pow(y,2)
+eredmeny4 = 3*x+math.pow(y,2)
+
+print("3*"+str(x)+"+"+str(y)+"^2="+str(eredmeny4))
+
+a = 11
+b = 7
+
+a, b = b, a
+
+print(a) # 7
+print(b) # 11
+
+"""1.	Írjuk ki a számokat 100-tól 1-ig visszafelé, 1 sorba 10 szám kerüljön"""
+
+szam = 100
+while szam > 0:
+    print(szam, end=" ")
+    if szam % 10 ==1:
+        print("")
+    szam -= 1
+
+"""1.	Írjuk ki a számokat 100-tól 1-ig visszafelé, 1 sorba 7 szám kerüljön"""
+
+szam = 100
+while szam > 0:
+    print(szam, end=" ")
+    if szam % 7 ==3:
+        print("")
+    szam -= 1
+
+#9.	Írjuk ki a 10x10-es szorzótáblát
+
+# 1 rész
+print("  ", end="")
+for szam1 in range(1, 10+1,1):
+    print(szam1, end=" ")
+print("")
+# 3 rész
+for sor in range(1, 10+1,1):
+    #2 rész
+    print(sor, end=" ")
+    for oszlop in range(1, 10 + 1, 1):
+        print(sor*oszlop, end=" ")
+    print("")
+
+
+
+def alap():
+    # alap
+    """1.	A program olvasson be a konzolról egy egész számot! A program döntse el, hogy a megadott szám páros vagy páratlan, és írja ki az eredményt a konzolra!"""
+
+    szam = int(input("Kérem adjon meg adjon meg egy egész számot!"))
+    if szam % 2 == 1:
+        print("Páratlan.")
+    else:
+        print("Páros.")
+
+
+def aFeladat():
+    szam =random.randint(-1000,1000)
+    if szam % 2 == 1:
+        print(str(szam)+" szám páratlan.")
+    else:
+        print(str(szam)+" szám páros.")
+
+def bFeladat():
+    szam =random.randint(-1000,1000)
+    print("Első:"+str(szam))
+    while not(szam%2 == 0):
+        szam = random.randint(-1000, 1000)
+        print("Ciklus:" + str(szam))
+    print(szam*szam)
+
+
+import math
+szam = float(input("Kérem adjon meg egy valós számot !"))
+print(" |" + str(szam) + "| =" + str(math.fabs(szam)))
+
+
+def ketto():
+    szoveg = beolvas.szovegBeolvas()
+    #1 megoldás
+    for index in range(0,len(szoveg), 1):
+        print(szoveg[index])
+
+    #2 megoldás
+    for karakter in szoveg:
+        print(karakter)    
+
+def harom():
+    szoveg=beolvas.szovegBeolvas()
+
+    # 1. megoldás
+    for index in range(0,len(szoveg), 1):
+        print(szoveg[index].upper(), end="")
+    print("")
+    # 2. megoldás
+    for karakter in szoveg:
+        print(karakter.upper(), end="")
+    print("")
+    # 3.megoldás
+    nagybetus=szoveg.upper()
+    print(nagybetus)
+    # 4. megoldás
+    print(szoveg.upper())
+
+def ot():
+    mondat = beolvas.mondatBeolvas()
+    mondat2 = mondat.lower()
+    aBetukSzama = 0
+    for index in range(0, len(mondat2), 1):
+        if mondat2[index] == "a":
+            aBetukSzama += 1
+
+    print("A mondatban: "+str(mondat)+", az a betűk száma: "+str(aBetukSzama)+".")
+
+def hat(mondat, betu):
+    mondat2 = mondat.lower()
+    betuKis = betu.lower()
+    BetukSzama = 0
+    for index in range(0, len(mondat2), 1):
+        if mondat2[index] == betuKis:
+            BetukSzama += 1
+
+    print("A mondatban: "+str(mondat)+", az "+str(betuKis)+" betűk száma: "+str(BetukSzama)+".")
+
+def het(szoveg):
+    #1 megoldás
+    mentes=""
+    for index in range(0, len(szoveg), 1):
+        if szoveg[index] != " ":
+            mentes += szoveg[index]
+    print("Szóköz mentes változat:"+str(mentes))
+
+    #2 megoldás
+    mentes2 = szoveg.replace(" ","")
+    print("Szóköz mentes változat:"+str(mentes2))
+
+    #3 megoldás
+    mentes3 = szoveg.split(" ")
+    print("Szóköz mentes változat:", end="")
+    #lista bejárása
+    for index in range(0,len(mentes3),1):
+        print(mentes3[index],end="")
+
+
+def nyolc(mondat, szo):
+    szo2 = szo.lower()
+    mondat2 = mondat.lower()
+    if szo2 in mondat2:
+        print("Tartalmazza a szót!")
+    else:
+        print("Nem tartalmazza a szót!")
+    """
+    írásjeltisztit()
+    mondatDarabolt=mondat.split(" ")
+    if szo2 == mondat2:
+    """
+
+def szovegBeolvas():
+    szoveg = input("Kérlek adj meg egy szöveget!")
+    return szoveg
+
+
+def mondatBeolvas():
+    mondat = input("Kérlek adj meg egy mondatot!")
+    return mondat
+
+
+def karakterBeolvas():
+    karakter = input("Kérlek adj meg egy betűt!")
+    return karakter
+
+def mertani():
+    a1 = 2
+    n = 6
+    q = 3
+
+    print("A mértani sor: "+str(a1), end="")
+    for db in range(2, n+1, 1):
+        an = a1*pow(q, db-1)
+        print("."+str(an), end="")
+
+def harmadik():
+    a1 = int(input("Kérem adja meg a számtani sorozat első elemét:"))
+    n = int(input("Kérem adja meg a számtani sorozat elemszámát:"))
+    d = int(input("Kérem adja meg a számtani sorozat differenciáját"))
+
+    if n >= 2:
+        # legalább 2 elemből álljon a sorozatom
+        an = a1+(n-1)*d
+        sn = ((a1+an)*n)/2
+        print("a1="+str(a1)+" n="+str(n)+" d="+str(d)+" Sn="+str(int(sn)))
+        if d < 0:
+            print("A számtani sorozat monoton csökkenő, és felülről korlátos.")
+        elif d > 0:
+            print("A számtani sorozat monoton növekvő, és alulról korlátos.")
+        else:
+            print("A számtani sorozat nemnövekvő, nemcsökkenő, azaz állandó.")
+    else:
+        print("HIBA: A elemszám nem lehet kisebb 2-nél!")
+
+import math
+
+
+def otodik():
+    szam = int(input("Kérem adjon meg egy egész számot 40 és 95 között!"))
+
+    if (szam >= 40) and (szam <= 95):
+        # első számjegye
+        print("A szám első számjegye:"+str(math.floor(szam/10)))
+    else:
+        print("HIBA: nem 40 és 95 közötti egész szám!")
+
+import math
+def negy():
+    szam = float(input("Kérlek adj meg valós számot: "))
+    kerek = math.ceil(szam)
+    print("Kerekített értéke: " + str(kerek))
+

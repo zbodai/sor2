@@ -1,0 +1,319 @@
+@charset "utf-8";
+
+font-weight: bold;
+font-family: "Times New Roman", Times, serif;
+font-family: 'Courier New', Courier, monospace;
+font-size: 20px;
+color: white;
+background-color: lightblue;
+background-color: rgba(255, 255, 255, 0.8);
+text-align: center;
+font-style: italic;
+text-decoration: underline;
+text-align: justify;
+line-height: 120%;
+font-variant: small-caps;
+div p{
+   text-indent: 50px;
+   text-align: justify;
+}
+#nagy{
+    text-transform: uppercase;
+}
+<span>Text 2</span>
+* {
+  box-sizing: border-box;
+}
+.grid-container {
+  display: grid;
+  gap: 50px;
+  grid-template-columns: auto auto auto;
+  background-color: #2196F3;
+  padding: 10px;
+}
+/* For devices smaller than 400px: */
+body {
+  background-image: url('img_smallflower.jpg');
+}
+
+/* For devices 400px and larger: */
+@media only screen and (min-device-width: 400px) {
+  body {
+    background-image: url('img_flowers.jpg');
+  }
+}
+@media only screen and (max-width: 400px) {
+    main{
+        display: block;
+        
+    }
+    article, header,nav, aside, footer{
+        height: 200px;
+        width: auto;
+    }  
+    }
+img {
+  width: 100%;
+  height: auto;
+}
+border-radius: 60%;
+margin-left: auto;    /* Automatikus margó bal oldalon */
+margin-right: auto;   /* Automatikus margó jobb oldalon */
+kép középre:
+<p class="kozepre"><img src="logo.png" id="logo" alt="Honfoglaló játék logója" title="Honfoglaló játék logója"></p>
+.kozepre{
+    text-align: center;
+}
+
+.sajat{
+ 
+  width: 100%;  /* Teljes szélesség, vagy a kívánt szélesség */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+3D border:
+border: 15px #504033 groove;
+
+div {
+  width: 100%;
+  height: 400px;
+  background-image: url('img_flowers.jpg');
+  background-repeat: no-repeat;
+  background-size: contain; vagy background-size: cover;
+  background-attachment: fixed;
+  border: 1px solid red;
+}
+.box {
+  float: left;
+  width: 33.33%;
+  padding: 50px;
+}
+
+.clearfix::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+vízszintes menü
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+}
+
+li {
+  float: left;
+}
+
+li a {
+  display: inline-block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li a:hover {
+  background-color: #111;
+}
+
+.active {
+  background-color: red;
+}
+<ul>
+  <li><a href="#home" class="active">Home</a></li>
+  <li><a href="#news">News</a></li>
+  <li><a href="#contact">Contact</a></li>
+  <li><a href="#about">About</a></li>
+</ul>
+
+ul li {
+    
+   list-style-image: url('vegyes\ feladatok/smiley2.png');
+   list-style-position: inside;
+    
+}
+list-style-type: square;
+
+.column {
+  float: left;
+  padding: 15px;
+}
+
+.clearfix::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.menu {
+  width: 25%;
+}
+
+.content {
+  width: 75%;
+}
+
+.img1 {
+  float: right;
+}
+
+.img2 {
+  float: right;
+}
+
+.clearfix {
+  overflow: auto;
+}
+new:
+.clearfix::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+<head>
+    <title>Hajok</title>
+    <meta name="author" content="Bodai Zoltán">
+    <meta name="keyswords" content="vitorlás, oktatás,csomók,szélirány">
+    <meta name="description" content="Vitorlázást oktató oldal">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<table>
+            <caption><b><u>Bajnoki tabella</u></b></caption>
+            <tr>
+                <th>Helyezés</th>
+                <th>Pilóták</th>
+                <th>Pont</th>
+            </tr>
+            <tr>
+                <td><img src="akupa.jpg" alt="akupa" style="width:50px;height:30px;"></td>
+                <td><a href="hamilton.html">L. Hamilton</a></td>
+                <td>306</td>
+            </tr>
+
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+  border-radius: 10px;
+}
+
+<table style="width:100%">
+  <tr>
+    <th style="width:70%">Firstname</th>
+    <th>Lastname</th>
+    <th>Age</th>
+  </tr>
+  <tr style="height:200px">
+      <td>Jill</td>
+    <td>Smith</td>
+    <td>50</td>
+  </tr>
+th, td {
+  padding: 15px;
+table {
+  border-spacing: 30px;
+}
+<tr>
+    <th rowspan="2">Phone</th>
+    <td>555-1234</td>
+</tr>
+<tr>
+    <th colspan="2">Name</th>
+    <th>Age</th>
+ </tr>
+
+
+main{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 2fr 1fr;
+    grid-template-areas: 
+    'n n ft b b'
+    'n n ft bt jt'
+    'k o e e e';
+    
+}
+nav{
+    grid-area: n;
+    
+}
+
+#fotartalom{
+    grid-area: ft;
+    border: double 1px black;
+    border-top: none;
+}
+
+#bejelentkezes{
+    grid-area: b;
+
+nav{
+    grid-area: n;
+    background-image: url(dand2.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover; 
+    
+}
+main *:hover{
+    opacity: 1;
+}
+
+main *{
+    opacity: 0.5;
+    border-radius: 10px;
+    color: white;
+    padding: 10px;
+    
+}
+vonal
+hr{
+    width: 90%;
+    height: 5px;    
+    background-color:#504033; 
+    box-shadow: 2px 2px 2px 2px rgba(0,0,0,.5);    
+}
+
+box-shadow: 10px -5px 20px 0px rgba(0,0,0,0.5);
+
+<a href="https://www.w3schools.com" target="_blank">Visit W3Schools</a> 
+
+
+<dl>
+    <dt>Március</dt>
+	<dd>2017 márciusa</dd>
+    <dt>Szeptember</dt>
+	<dd> fdgdfgdfg</dd>
+</dl>
+
+
+<link rel="stylesheet" href="bootstrap-4.4.1-dist/css/bootstrap.min.css" />
+<div class="container">
+			<div class="sajat">
+
+				<div class="col-12 col-md-10 col-lg-8">
+
+					<table class="table table-hover table-bordered custom-table">
+						<thead>
+							<tr>
+								<th class="col-2">Operator</th>
+								<th class="col-6">Description</th>
+								<th class="col-4">Example</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td class="col-2">&gt;</td>
+								<td class="col-6">Greater than</td>
+								<td class="col-4">(A &gt; B) is False</td>
+							</tr>
+<script src="bootstrap-4.4.1-dist/js/jquery.min.js"></script>
+<script src="bootstrap-4.4.1-dist/js/tether.min.js"></script>
+<script src="bootstrap-4.4.1-dist/js/bootstrap.min.js"></script>
+<script src="bootstrap-4.4.1-dist/js/jquery.easing.min.js"></script>
